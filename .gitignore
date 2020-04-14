@@ -1,0 +1,5 @@
+*.local
+a.*
+*.res
+*.identcache
+Win32
