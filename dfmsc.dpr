@@ -8,9 +8,12 @@ uses
   System.SysUtils,
   System.Classes;
 
+var
+  comments: Boolean;
+
 procedure show_version;
 begin
-  Writeln('dfmsc by katahiromz version 0.5');
+  Writeln('dfmsc by katahiromz version 0.6');
 end;
 
 procedure show_help;
@@ -22,6 +25,7 @@ begin
   Writeln('--version  Show version information');
   Writeln('--b2t      Convert from binary to text');
   Writeln('--t2b      Convert from text to binary');
+  Writeln('--comments Add comments for raw text');
 end;
 
 procedure ObjectBinaryToText2(const Input, Output: TStream);
@@ -231,6 +235,12 @@ var
             finally
               Dec(NestingLevel);
             end;
+          end;
+          if comments then
+          begin
+            WriteAsciiStr(' //- ');
+            WriteUTF8Str(W);
+            WriteAsciiStr(' -//');
           end;
         end;
       //vaString, vaLString:
@@ -668,6 +678,7 @@ var
 begin
   b2t := false;
   t2b := false;
+  comments := false;
   if (ParamCount = 0) then begin
     show_help;
     exit;
@@ -688,6 +699,10 @@ begin
     end;
     if (str = '--t2b') then begin
       t2b := true;
+      continue;
+    end;
+    if (str = '--comments') then begin
+      comments := true;
       continue;
     end;
     if (str[1] = '-') then begin
