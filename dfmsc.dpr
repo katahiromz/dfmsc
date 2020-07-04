@@ -31,6 +31,17 @@ begin
 end;
 
 type
+  TWriter2 = class(TWriter)
+  public
+    procedure WritePrefix2(Flags: TFilerFlags; AChildPos: Integer);
+  end;
+
+procedure TWriter2.WritePrefix2(Flags: TFilerFlags; AChildPos: Integer);
+begin
+  WritePrefix(Flags, AChildPos);
+end;
+
+type
   TReader2 = class(TReader)
   public
     function ReadString2(CodePage: Integer): string;
@@ -454,17 +465,6 @@ begin
   finally
     Reader.Free;
   end;
-end;
-
-type
-  TWriter2 = class(TWriter)
-  public
-    procedure WritePrefix2(Flags: TFilerFlags; AChildPos: Integer);
-  end;
-
-procedure TWriter2.WritePrefix2(Flags: TFilerFlags; AChildPos: Integer);
-begin
-  WritePrefix(Flags, AChildPos);
 end;
 
 procedure ObjectTextToBinary2(const Input, Output: TStream);
