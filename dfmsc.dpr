@@ -10,6 +10,7 @@ uses
 
 var
   comments: Boolean;
+  InputCodePage: Integer;
 
 procedure show_version;
 begin
@@ -21,17 +22,67 @@ begin
   Writeln('dfmsc: DFM smart converter');
   Writeln('Usage: dfmsc [options] [input_file]');
   Writeln('Options:');
-  Writeln('--help     Show this message');
-  Writeln('--version  Show version information');
-  Writeln('--b2t      Convert from binary to text');
-  Writeln('--t2b      Convert from text to binary');
-  Writeln('--comments Add comments for raw text');
+  Writeln('--help           Show this message');
+  Writeln('--version        Show version information');
+  Writeln('--b2t            Convert from binary to text');
+  Writeln('--t2b            Convert from text to binary');
+  Writeln('--comments       Add comments for raw text');
+  Writeln('--codepage XXX   Specify text codepage');
+end;
+
+type
+  TReader2 = class(TReader)
+  public
+    function ReadString2(CodePage: Integer): string;
+  end;
+
+function TReader2.ReadString2(CodePage: Integer): string;
+var
+  L: Integer;
+  LResult: TBytes;
+  Encoding: TEncoding;
+begin
+  L := 0;
+  case ReadValue of
+    vaWString:
+      begin
+        Read(L, SizeOf(Integer));
+        SetLength(LResult, L*sizeof(WideChar));
+        Read(LResult, L*sizeof(WideChar));
+        Result := TEncoding.Unicode.GetString(LResult);
+      end;
+    vaUTF8String:
+      begin
+        Read(L, SizeOf(Integer));
+        SetLength(LResult, L);
+        Read(LResult, L);
+        Result := TEncoding.UTF8.GetString(LResult);
+      end;
+    vaString:
+      begin
+        Read(L, SizeOf(Byte));
+        SetLength(LResult, L);
+        Read(LResult, L);
+        Encoding := TEncoding.GetEncoding(CodePage);
+        Result := Encoding.GetString(LResult);
+      end;
+    vaLString:
+      begin
+        Read(L, SizeOf(Integer));
+        SetLength(LResult, L);
+        Read(LResult, L);
+        Encoding := TEncoding.GetEncoding(CodePage);
+        Result := Encoding.GetString(LResult);
+      end;
+    else
+      raise Exception.Create('PropValueError');
+  end;
 end;
 
 procedure ObjectBinaryToText2(const Input, Output: TStream);
 var
   NestingLevel: Integer;
-  Reader: TReader;
+  Reader: TReader2;
   Writer: TWriter;
   ObjectName, PropName: string;
   UTF8Idents: Boolean;
@@ -192,7 +243,13 @@ var
       //vaWString, vaUTF8String:
       vaWString, vaUTF8String, vaString, vaLString: //
         begin
-          W := Reader.ReadString;
+          if InputCodePage <> 0 then
+          begin
+            W := Reader.ReadString2(InputCodePage);
+          end else
+          begin
+            W := Reader.ReadString;
+          end;
           L := High(W);
           if L = High('') then WriteAsciiStr('''''') else
           begin
@@ -245,7 +302,7 @@ var
         end;
       //vaString, vaLString:
       //  begin
-      //    S := Reader.ReadString;
+      //    S := Reader.ReadString2;
       //    L := High(S);
       //    if L = High('') then WriteAsciiStr('''''') else
       //    begin
@@ -375,7 +432,7 @@ var
 begin
   NestingLevel := 0;
   UTF8Idents := False;
-  Reader := TReader.Create(Input, 4096);
+  Reader := TReader2.Create(Input, 4096);
   LFormatSettings := TFormatSettings.Create('en-US'); // do not localize
   LFormatSettings.DecimalSeparator := '.';
   try
@@ -675,15 +732,23 @@ var
   str, input_file, output_file : String;
   b2t : boolean;
   t2b : boolean;
+  has_param : boolean;
 begin
   b2t := false;
   t2b := false;
   comments := false;
+  InputCodePage := 0;
+  has_param := false;
   if (ParamCount = 0) then begin
     show_help;
     exit;
   end;
   for index := 1 to ParamCount do begin
+    if has_param then
+    begin
+      has_param := false;
+      Continue;
+    end;
     str := ParamStr(index);
     if (str = '--help') then begin
       show_help;
@@ -703,6 +768,11 @@ begin
     end;
     if (str = '--comments') then begin
       comments := true;
+      continue;
+    end;
+    if (str = '--codepage') then begin
+      InputCodePage := ParamStr(index + 1).ToInteger;
+      has_param := True;
       continue;
     end;
     if (str[1] = '-') then begin
