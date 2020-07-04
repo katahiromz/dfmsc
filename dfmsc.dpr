@@ -185,7 +185,8 @@ var
         WriteAsciiStr(FloatToStr(Reader.ReadCurrency * 10000, LFormatSettings) + 'c');
       vaDate:
         WriteAsciiStr(FloatToStr(Reader.ReadDate, LFormatSettings) + 'd');
-      vaWString, vaUTF8String:
+      //vaWString, vaUTF8String:
+      vaWString, vaUTF8String, vaString, vaLString: //
         begin
           W := Reader.ReadString;
           L := High(W);
@@ -232,55 +233,55 @@ var
             end;
           end;
         end;
-      vaString, vaLString:
-        begin
-          S := Reader.ReadString;
-          L := High(S);
-          if L = High('') then WriteAsciiStr('''''') else
-          begin
-            I := Low(S);
-            Inc(NestingLevel);
-            try
-              if L > LineLength then NewLine;
-              K := I;
-              repeat
-                LineBreak := False;
-                if (S[I] >= ' ') and (S[I] <> '''') then
-                begin
-                  J := I;
-                  repeat
-                    Inc(I)
-                  until (I > L) or (S[I] < ' ') or (S[I] = '''') or
-                    ((I - K) >= LineLength);
-                  if ((I - K) >= LineLength) then
-                  begin
-                    LIneBreak := True;
-
-//                    if ByteType(S, I) = mbTrailByte then Dec(I);
-                  end;
-                  WriteAsciiStr('''');
-
-                  WriteAsciiStr(S.Substring(J-Low(S), I-J));
-                  WriteAsciiStr('''');
-                end else
-                begin
-                  WriteAsciiStr('#');
-                  WriteAsciiStr(IntToStr(Ord(S[I])));
-                  Inc(I);
-                  if ((I - K) >= LineLength) then LineBreak := True;
-                end;
-                if LineBreak and (I <= L) then
-                begin
-                  WriteAsciiStr(' +');
-                  NewLine;
-                  K := I;
-                end;
-              until I > L;
-            finally
-              Dec(NestingLevel);
-            end;
-          end;
-        end;
+      //vaString, vaLString:
+      //  begin
+      //    S := Reader.ReadString;
+      //    L := High(S);
+      //    if L = High('') then WriteAsciiStr('''''') else
+      //    begin
+      //      I := Low(S);
+      //      Inc(NestingLevel);
+      //      try
+      //        if L > LineLength then NewLine;
+      //        K := I;
+      //        repeat
+      //          LineBreak := False;
+      //          if (S[I] >= ' ') and (S[I] <> '''') then
+      //          begin
+      //            J := I;
+      //            repeat
+      //              Inc(I)
+      //            until (I > L) or (S[I] < ' ') or (S[I] = '''') or
+      //              ((I - K) >= LineLength);
+      //            if ((I - K) >= LineLength) then
+      //            begin
+      //              LIneBreak := True;
+      //
+//    //                if ByteType(S, I) = mbTrailByte then Dec(I);
+      //            end;
+      //            WriteAsciiStr('''');
+      //
+      //            WriteAsciiStr(S.Substring(J-Low(S), I-J));
+      //            WriteAsciiStr('''');
+      //          end else
+      //          begin
+      //            WriteAsciiStr('#');
+      //            WriteAsciiStr(IntToStr(Ord(S[I])));
+      //            Inc(I);
+      //            if ((I - K) >= LineLength) then LineBreak := True;
+      //          end;
+      //          if LineBreak and (I <= L) then
+      //          begin
+      //            WriteAsciiStr(' +');
+      //            NewLine;
+      //            K := I;
+      //          end;
+      //        until I > L;
+      //      finally
+      //        Dec(NestingLevel);
+      //      end;
+      //    end;
+      //  end;
       vaIdent, vaFalse, vaTrue, vaNil, vaNull:
         WriteUTF8Str(Reader.ReadIdent);
       vaBinary:
