@@ -1,0 +1,70 @@
+object ReduceColDlg: TReduceColDlg
+  Left = 266
+  Top = 403
+  BorderIcons = []
+  BorderStyle = bsDialog
+  Caption = 'r~W¸ìver1.2'
+  ClientHeight = 58
+  ClientWidth = 180
+  Color = clBtnFace
+  Font.Charset = SHIFTJIS_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = '-3 0¥∑√Ø'
+  Font.Style = []
+  FormStyle = fsStayOnTop
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnDestroy = FormDestroy
+  OnPaint = FormPaint
+  PixelsPerInch = 96
+  TextHeight = 12
+  object Image1: TImage
+    Left = 8
+    Top = 88
+    Width = 32
+    Height = 32
+    AutoSize = True
+  end
+  object Image2: TImage
+    Left = 48
+    Top = 88
+    Width = 32
+    Height = 32
+    Stretch = True
+    Visible = False
+  end
+  object CGauge1: TCGauge
+    Left = 16
+    Top = 24
+    Width = 153
+    Height = 17
+    ForeColor = clBlue
+    MaxValue = 1000
+  end
+  object Label1: TLabel
+    Left = 16
+    Top = 8
+    Width = 90
+    Height = 12
+    Caption = 'rWfD~Y&'
+  end
+  object CancelBtn: TButton
+    Left = 56
+    Top = 64
+    Width = 75
+    Height = 20
+    Caption = 'wlù~ô'
+    TabOrder = 0
+    Visible = False
+    OnClick = CancelBtnClick
+  end
+  object CheckBox1: TCheckBox
+    Left = 88
+    Top = 88
+    Width = 17
+    Height = 17
+    TabOrder = 1
+    Visible = False
+  end
+end

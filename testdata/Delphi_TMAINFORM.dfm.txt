@@ -1,0 +1,1112 @@
+object MainForm: TMainForm
+  Left = 464
+  Top = 132
+  ActiveControl = EditSrcFile
+  BorderStyle = bsSingle
+  Caption = 'ReStream'
+  ClientHeight = 665
+  ClientWidth = 584
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Arial'
+  Font.Style = []
+  OldCreateOrder = False
+  Scaled = False
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 14
+  object OpenMPGBtn: TSpeedButton
+    Left = 556
+    Top = 4
+    Width = 25
+    Height = 21
+    OnClick = OpenMPGBtnClick
+  end
+  object Label1: TLabel
+    Left = 4
+    Top = 8
+    Width = 75
+    Height = 14
+    Caption = 'MPEG2-source:'
+    ParentShowHint = False
+    ShowHint = True
+  end
+  object SaveMPGBtn: TSpeedButton
+    Left = 556
+    Top = 452
+    Width = 25
+    Height = 21
+    Layout = blGlyphRight
+    OnClick = SaveMPGBtnClick
+  end
+  object Label4: TLabel
+    Left = 4
+    Top = 456
+    Width = 56
+    Height = 14
+    Caption = 'Destination:'
+    ParentShowHint = False
+    ShowHint = True
+  end
+  object WriteBtn: TSpeedButton
+    Left = 520
+    Top = 476
+    Width = 61
+    Height = 21
+    Caption = 'Write!'
+    Enabled = False
+    OnClick = WriteBtnClick
+  end
+  object LabelProgess: TLabel
+    Left = 438
+    Top = 480
+    Width = 16
+    Height = 14
+    Caption = '0%'
+    FocusControl = LogMemo
+  end
+  object StopBtn: TSpeedButton
+    Left = 466
+    Top = 476
+    Width = 51
+    Height = 21
+    Caption = 'Stop!'
+    Enabled = False
+    OnClick = StopBtnClick
+  end
+  object SpeedButton5: TSpeedButton
+    Left = 464
+    Top = 500
+    Width = 61
+    Height = 22
+    Caption = 'Free?'
+    Visible = False
+    OnClick = SpeedButton5Click
+  end
+  object Label15: TLabel
+    Left = 464
+    Top = 524
+    Width = 38
+    Height = 14
+    Caption = 'Label15'
+    Visible = False
+  end
+  object Label16: TLabel
+    Left = 464
+    Top = 536
+    Width = 38
+    Height = 14
+    Caption = 'Label16'
+    Visible = False
+  end
+  object ReadLabelsBtn: TSpeedButton
+    Left = 464
+    Top = 608
+    Width = 117
+    Height = 22
+    Hint = 'Read language-strings from language.ini'
+    Caption = 'Read language'
+    ParentShowHint = False
+    ShowHint = True
+    Visible = False
+    OnClick = ReadLabelsBtnClick
+  end
+  object WriteLabelsBtn: TSpeedButton
+    Left = 464
+    Top = 632
+    Width = 117
+    Height = 22
+    Caption = 'WriteLabels'
+    Visible = False
+    OnClick = WriteLabelsBtnClick
+  end
+  object EditSrcFile: TEdit
+    Left = 80
+    Top = 4
+    Width = 473
+    Height = 22
+    TabOrder = 0
+    OnExit = EditSrcFileExit
+  end
+  object EditDestFile: TEdit
+    Left = 80
+    Top = 452
+    Width = 473
+    Height = 22
+    TabOrder = 1
+    OnExit = TrimSpaces
+  end
+  object ProgressBar: TProgressBar
+    Left = 4
+    Top = 480
+    Width = 429
+    Height = 14
+    Max = 999
+    Smooth = True
+    TabOrder = 2
+  end
+  object LogMemo: TMemo
+    Left = 4
+    Top = 500
+    Width = 453
+    Height = 157
+    ScrollBars = ssVertical
+    TabOrder = 3
+    Visible = False
+    WordWrap = False
+  end
+  object CheckBox1: TCheckBox
+    Left = 464
+    Top = 566
+    Width = 73
+    Height = 17
+    Hint = 
+      'Try to rewrite all parts of the stream. This can fix some defect' +
+      'ive headers but can also break your file.'
+    Caption = 'Rewrite all'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 4
+    Visible = False
+  end
+  object RemJunkBox: TCheckBox
+    Left = 464
+    Top = 586
+    Width = 85
+    Height = 17
+    Hint = 
+      'Removes some unnecessary stuff from a MP@ML MPEG2-elementary str' +
+      'eam.'
+    Caption = 'Remove junk'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 5
+    Visible = False
+  end
+  object GroupBox3: TGroupBox
+    Left = 4
+    Top = 32
+    Width = 577
+    Height = 141
+    Caption = 'Sequence'
+    TabOrder = 6
+    object LabelNonIntraMatrix: TLabel
+      Left = 292
+      Top = 52
+      Width = 79
+      Height = 14
+      Caption = 'Non-intra matrix:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label5: TLabel
+      Left = 8
+      Top = 16
+      Width = 53
+      Height = 14
+      Caption = 'Resolution:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label6: TLabel
+      Left = 106
+      Top = 16
+      Width = 7
+      Height = 14
+      Caption = 'X'
+    end
+    object Label7: TLabel
+      Left = 168
+      Top = 16
+      Width = 38
+      Height = 14
+      Caption = 'Aspect:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label8: TLabel
+      Left = 292
+      Top = 16
+      Width = 52
+      Height = 14
+      Caption = 'Framerate:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label9: TLabel
+      Left = 432
+      Top = 16
+      Width = 61
+      Height = 14
+      Caption = 'Bitrate [bps]:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object LabelIntraMatrix: TLabel
+      Left = 8
+      Top = 52
+      Width = 56
+      Height = 14
+      Caption = 'Intra matrix:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object LabelConstrParam: TLabel
+      Left = 292
+      Top = 36
+      Width = 119
+      Height = 14
+      Caption = 'Constrained parameters:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object LabelVBVBuff: TLabel
+      Left = 8
+      Top = 36
+      Width = 82
+      Height = 14
+      Caption = 'VBV buffer size:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object EditResX: TEdit
+      Left = 64
+      Top = 12
+      Width = 37
+      Height = 22
+      Hint = 'Valid values: 0..4095'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      OnExit = TrimSpaces
+    end
+    object EditResY: TEdit
+      Left = 118
+      Top = 12
+      Width = 37
+      Height = 22
+      Hint = 'Valid values: 0..4095'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      OnExit = TrimSpaces
+    end
+    object AspectBox: TComboBox
+      Left = 210
+      Top = 12
+      Width = 69
+      Height = 22
+      Style = csDropDownList
+      ItemHeight = 14
+      ItemIndex = 0
+      TabOrder = 2
+      Text = '---'
+      Items.Strings = (
+        '---'
+        '1:1'
+        '4:3'
+        '16:9'
+        '2.21:1')
+    end
+    object FrameRateBox: TComboBox
+      Left = 352
+      Top = 12
+      Width = 69
+      Height = 22
+      Style = csDropDownList
+      DropDownCount = 10
+      ItemHeight = 14
+      ItemIndex = 0
+      TabOrder = 3
+      Text = '---'
+      Items.Strings = (
+        '---'
+        '23.976'
+        '24.000'
+        '25.000'
+        '29.970'
+        '30.000'
+        '50.000'
+        '59.940'
+        '60.000')
+    end
+    object EditBitrate: TEdit
+      Left = 500
+      Top = 12
+      Width = 69
+      Height = 22
+      Hint = 'Valid values: 0..6553599'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 4
+      OnExit = TrimSpaces
+    end
+    object GroupBox1: TGroupBox
+      Left = 8
+      Top = 68
+      Width = 277
+      Height = 65
+      Caption = ' Intra matrix '
+      TabOrder = 5
+      object OpenIntraBtn: TSpeedButton
+        Left = 246
+        Top = 36
+        Width = 25
+        Height = 21
+        OnClick = OpenIntraBtnClick
+      end
+      object SaveIntraBtn: TSpeedButton
+        Left = 246
+        Top = 12
+        Width = 25
+        Height = 22
+        Enabled = False
+        Layout = blGlyphRight
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = SaveIntraBtnClick
+      end
+      object RadioBtnIntraManual: TRadioButton
+        Left = 184
+        Top = 16
+        Width = 58
+        Height = 17
+        Caption = 'Manual'
+        Enabled = False
+        TabOrder = 3
+        OnClick = RadioIntra
+      end
+      object EditIntraFile: TEdit
+        Left = 6
+        Top = 36
+        Width = 236
+        Height = 22
+        TabOrder = 0
+        OnExit = TrimSpaces
+      end
+      object RadioBtnIntraStandard: TRadioButton
+        Left = 6
+        Top = 16
+        Width = 69
+        Height = 17
+        Caption = 'Standard'
+        TabOrder = 1
+        OnClick = RadioIntra
+      end
+      object RadioBtnIntraSame: TRadioButton
+        Left = 76
+        Top = 16
+        Width = 101
+        Height = 17
+        Caption = 'Same as source'
+        Enabled = False
+        TabOrder = 2
+        OnClick = RadioIntra
+      end
+    end
+    object GroupBox2: TGroupBox
+      Left = 292
+      Top = 68
+      Width = 277
+      Height = 65
+      Caption = ' Non-intra matrix '
+      TabOrder = 6
+      object OpenNonIntraBtn: TSpeedButton
+        Left = 246
+        Top = 36
+        Width = 25
+        Height = 21
+        OnClick = OpenNonIntraBtnClick
+      end
+      object SaveNonIntraBtn: TSpeedButton
+        Left = 246
+        Top = 12
+        Width = 25
+        Height = 22
+        Enabled = False
+        Layout = blGlyphRight
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = SaveNonIntraBtnClick
+      end
+      object EditNonIntraFile: TEdit
+        Left = 6
+        Top = 36
+        Width = 236
+        Height = 22
+        TabOrder = 0
+        OnExit = TrimSpaces
+      end
+      object RadioBtnNonIntraManual: TRadioButton
+        Left = 184
+        Top = 16
+        Width = 58
+        Height = 17
+        Caption = 'Manual'
+        Enabled = False
+        TabOrder = 1
+        OnClick = RadioNonIntra
+      end
+      object RadioBtnNonIntraSame: TRadioButton
+        Left = 76
+        Top = 16
+        Width = 101
+        Height = 17
+        Caption = 'Same as source'
+        Enabled = False
+        TabOrder = 2
+        OnClick = RadioNonIntra
+      end
+      object RadioBtnNonIntraStandard: TRadioButton
+        Left = 6
+        Top = 16
+        Width = 69
+        Height = 17
+        Caption = 'Standard'
+        TabOrder = 3
+        OnClick = RadioNonIntra
+      end
+    end
+  end
+  object GroupBox4: TGroupBox
+    Left = 4
+    Top = 280
+    Width = 285
+    Height = 53
+    Caption = 'Sequence Extension'
+    TabOrder = 7
+    object CorrSeqExtLengthBox: TCheckBox
+      Left = 8
+      Top = 30
+      Width = 269
+      Height = 17
+      Hint = 
+        'CCE produces a sequence-extension what is 2 Bytes too long. Corr' +
+        'ect that.'
+      Caption = 'Correct Sequence Extension length'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+    end
+    object ProgSeqBox: TCheckBox
+      Left = 8
+      Top = 14
+      Width = 269
+      Height = 17
+      Caption = 'Progressive sequence'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+    end
+  end
+  object GroupBox5: TGroupBox
+    Left = 296
+    Top = 176
+    Width = 285
+    Height = 133
+    Caption = 'Group Of Pictures'
+    TabOrder = 8
+    object Label18: TLabel
+      Left = 8
+      Top = 16
+      Width = 101
+      Height = 14
+      Caption = 'First GOP-timestamp:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label19: TLabel
+      Left = 156
+      Top = 16
+      Width = 6
+      Height = 14
+      Caption = 'h'
+    end
+    object Label20: TLabel
+      Left = 192
+      Top = 16
+      Width = 8
+      Height = 14
+      Caption = 'm'
+    end
+    object Label21: TLabel
+      Left = 228
+      Top = 16
+      Width = 6
+      Height = 14
+      Caption = 's'
+    end
+    object Label22: TLabel
+      Left = 264
+      Top = 16
+      Width = 4
+      Height = 14
+      Caption = 'f'
+    end
+    object LabelGOPcoded: TLabel
+      Left = 76
+      Top = 52
+      Width = 7
+      Height = 14
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Courier New'
+      Font.Style = []
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object LabelGOPTopFields: TLabel
+      Left = 76
+      Top = 82
+      Width = 7
+      Height = 14
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Courier New'
+      Font.Style = []
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object LabelGOPBottomFields: TLabel
+      Left = 76
+      Top = 96
+      Width = 7
+      Height = 14
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Courier New'
+      Font.Style = []
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label12: TLabel
+      Left = 8
+      Top = 82
+      Width = 50
+      Height = 14
+      Caption = 'Top fields:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label13: TLabel
+      Left = 8
+      Top = 96
+      Width = 65
+      Height = 14
+      Caption = 'Bottom fields:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label23: TLabel
+      Left = 8
+      Top = 54
+      Width = 64
+      Height = 14
+      Caption = 'Fields coded:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object LabelGOPTopFieldsTff: TLabel
+      Left = 76
+      Top = 70
+      Width = 7
+      Height = 14
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Courier New'
+      Font.Style = []
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label25: TLabel
+      Left = 8
+      Top = 70
+      Width = 36
+      Height = 14
+      Caption = 'tff-flag:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object LabelGOPBottomFieldsTff: TLabel
+      Left = 76
+      Top = 108
+      Width = 7
+      Height = 14
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Courier New'
+      Font.Style = []
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label27: TLabel
+      Left = 8
+      Top = 108
+      Width = 36
+      Height = 14
+      Caption = 'tff-flag:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object GOPTimeEditH: TEdit
+      Left = 132
+      Top = 12
+      Width = 21
+      Height = 22
+      Hint = 'Hours:'#13#10'Valid values: 0..31'
+      MaxLength = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      OnExit = TrimSpaces
+      OnKeyPress = OnlyNumbers
+    end
+    object GOPTimeEditM: TEdit
+      Left = 168
+      Top = 12
+      Width = 21
+      Height = 22
+      Hint = 'Minutes:'#13#10'Valid values: 0..59'
+      MaxLength = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      OnExit = TrimSpaces
+      OnKeyPress = OnlyNumbers
+    end
+    object GOPTimeEditS: TEdit
+      Left = 204
+      Top = 12
+      Width = 21
+      Height = 22
+      Hint = 'Seconds:'#13#10'Valid values: 0..59'
+      MaxLength = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 2
+      OnExit = TrimSpaces
+      OnKeyPress = OnlyNumbers
+    end
+    object GOPTimeEditF: TEdit
+      Left = 240
+      Top = 12
+      Width = 21
+      Height = 22
+      Hint = 'Frame:'#13#10'Valid values: 0..63'
+      MaxLength = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 3
+      OnExit = TrimSpaces
+      OnKeyPress = OnlyNumbers
+    end
+    object ResetTimeStampsBox: TCheckBox
+      Left = 8
+      Top = 36
+      Width = 121
+      Height = 17
+      Caption = 'reset timestamps'
+      TabOrder = 4
+    end
+    object ZeroBrokenLinkBox: TCheckBox
+      Left = 132
+      Top = 36
+      Width = 145
+      Height = 17
+      Caption = 'zero broken-link flags'
+      TabOrder = 5
+    end
+  end
+  object GroupBox6: TGroupBox
+    Left = 4
+    Top = 176
+    Width = 285
+    Height = 101
+    Caption = 'Picture Coding Extension'
+    TabOrder = 9
+    object LabelScanningMode: TLabel
+      Left = 8
+      Top = 64
+      Width = 78
+      Height = 14
+      Caption = 'Scanning-mode:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label2: TLabel
+      Left = 148
+      Top = 32
+      Width = 88
+      Height = 14
+      Caption = 'Intra DC precision:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label3: TLabel
+      Left = 8
+      Top = 80
+      Width = 87
+      Height = 14
+      Caption = 'Quantisizer scale:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label10: TLabel
+      Left = 154
+      Top = 16
+      Width = 82
+      Height = 14
+      Caption = 'Intra VLC format:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label11: TLabel
+      Left = 8
+      Top = 48
+      Width = 83
+      Height = 14
+      Caption = 'Picture structure:'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object TffBox: TCheckBox
+      Left = 8
+      Top = 31
+      Width = 135
+      Height = 17
+      Caption = 'top field first'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+    end
+    object FrameTypeProgBox: TCheckBox
+      Left = 8
+      Top = 15
+      Width = 135
+      Height = 17
+      Hint = 'Non-progressive = interlaced'
+      Caption = 'Frametype progressive'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+    end
+  end
+  object GroupBox7: TGroupBox
+    Left = 4
+    Top = 408
+    Width = 577
+    Height = 41
+    Caption = 'Stream Extras'
+    TabOrder = 10
+    object RemSeqEndBox: TCheckBox
+      Left = 8
+      Top = 16
+      Width = 249
+      Height = 17
+      Hint = 'Removes all Sequence End Codes ($000001B7) from the stream.'
+      Caption = 'Remove Seq. End Codes'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+    end
+    object SeqCutEdit: TEdit
+      Left = 506
+      Top = 12
+      Width = 65
+      Height = 22
+      Hint = 'Valid cutting positions: 2 to ...'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      Text = '2'
+    end
+    object SeqCutBox: TCheckBox
+      Left = 300
+      Top = 14
+      Width = 181
+      Height = 17
+      Hint = 'Cut the stream at the sequence.'
+      Caption = 'Cut destination at Sequence:'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 2
+    end
+  end
+  object GroupBox8: TGroupBox
+    Left = 4
+    Top = 336
+    Width = 285
+    Height = 69
+    Caption = 'Sequence Display Extension'
+    TabOrder = 11
+    object Label14: TLabel
+      Left = 50
+      Top = 44
+      Width = 71
+      Height = 14
+      Hint = 
+        'Horizontal size of the Sequence Display Extension.'#13#10'For DVDs wit' +
+        'h Pan-Scan info use 540.'#13#10'With SVCDs some DVD-Players need the i' +
+        'nput-size here.'
+      Caption = 'Horizontal size'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object Label17: TLabel
+      Left = 102
+      Top = 20
+      Width = 137
+      Height = 14
+      Hint = 
+        'This adds/changes Pan and Scan Info in the stream.'#13#10'Some DVD-Pla' +
+        'yers need this to position the video correctly.'
+      HelpType = htKeyword
+      Caption = 'Sequence Display Extension'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object SeqDispExtColBox: TCheckBox
+      Left = 172
+      Top = 42
+      Width = 105
+      Height = 17
+      Hint = 'Full Sequence Display Extension with color information'
+      Caption = 'With color'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+    end
+    object EditXSizeSeqDispExt: TEdit
+      Left = 8
+      Top = 40
+      Width = 37
+      Height = 22
+      TabOrder = 1
+      Text = '540'
+      OnExit = TrimSpaces
+    end
+    object SeqDispExtBox: TComboBox
+      Left = 8
+      Top = 16
+      Width = 89
+      Height = 22
+      HelpType = htKeyword
+      Style = csDropDownList
+      ItemHeight = 14
+      ItemIndex = 0
+      ParentShowHint = False
+      ShowHint = False
+      TabOrder = 2
+      Text = 'don'#39't change'
+      Items.Strings = (
+        'don'#39't change'
+        'add'
+        'change'
+        'remove')
+    end
+    object SeqDispExtFoundBox: TCheckBox
+      Left = 268
+      Top = 8
+      Width = 13
+      Height = 17
+      Hint = 'Found in source-file?'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 3
+      OnEnter = NoClick
+    end
+  end
+  object GroupBox9: TGroupBox
+    Left = 296
+    Top = 312
+    Width = 285
+    Height = 93
+    Caption = 'User Data'
+    TabOrder = 12
+    object LabelUserData: TLabel
+      Left = 102
+      Top = 20
+      Width = 48
+      Height = 14
+      Hint = 
+        'This adds/changes/removes User Data.'#13#10'(e.g. SVCD-scan-offsets, p' +
+        'roducer-strings, DVB-codes, ...)'
+      HelpType = htKeyword
+      Caption = 'User Data'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object LabelCharStr: TLabel
+      Left = 8
+      Top = 44
+      Width = 53
+      Height = 14
+      Caption = 'Char string'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object LabelHexStr: TLabel
+      Left = 8
+      Top = 68
+      Width = 49
+      Height = 14
+      Caption = 'Hex string'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object EditUsrDataHex: TEdit
+      Left = 72
+      Top = 64
+      Width = 208
+      Height = 22
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      Text = '99028080AA0280800000'
+      OnExit = EditUsrDataHexExit
+    end
+    object UsrDataBox: TComboBox
+      Left = 8
+      Top = 16
+      Width = 89
+      Height = 22
+      HelpType = htKeyword
+      Style = csDropDownList
+      ItemHeight = 14
+      ItemIndex = 0
+      ParentShowHint = False
+      ShowHint = False
+      TabOrder = 1
+      Text = 'don'#39't change'
+      OnChange = UsrDataBoxChange
+      Items.Strings = (
+        'don'#39't change'
+        'add'
+        'change'
+        'remove')
+    end
+    object UsrDataFoundBox: TCheckBox
+      Left = 268
+      Top = 8
+      Width = 13
+      Height = 17
+      Hint = 'Found in source-file?'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 2
+      OnEnter = NoClick
+    end
+    object UsrDataEveryBox: TComboBox
+      Left = 164
+      Top = 16
+      Width = 89
+      Height = 22
+      HelpType = htKeyword
+      Style = csDropDownList
+      ItemHeight = 14
+      ItemIndex = 0
+      ParentShowHint = False
+      ShowHint = False
+      TabOrder = 3
+      Text = 'once'
+      Visible = False
+      Items.Strings = (
+        'once'
+        'every GOP'
+        'every picture')
+    end
+    object EditUsrDataChar: TEdit
+      Left = 72
+      Top = 40
+      Width = 208
+      Height = 22
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 4
+      Text = 'Some User Data string'
+      OnExit = EditUsrDataCharExit
+    end
+  end
+  object OpenDlgMPG: TOpenDialog
+    Filter = 
+      'MPEG2 elementary video streams (*.m2v;*.mpv)|*.m2v;*.mpv|All fil' +
+      'es (*.*)|*.*'
+    Options = [ofHideReadOnly, ofFileMustExist, ofEnableSizing]
+    Left = 484
+  end
+  object SaveMPGDlg: TSaveDialog
+    DefaultExt = 'm2v'
+    Filter = 'MPEG2 elementary video streams (*.m2v;*.mpv)|*.m2v;*.mpv'
+    Left = 504
+    Top = 448
+  end
+  object ProgTimer: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = ProgTimerTimer
+    Left = 88
+  end
+  object OpenIntraDlg: TOpenDialog
+    Filter = 'Matrix text|*.mat;*.txt|All files (*.*)|*.*'
+    Options = [ofHideReadOnly, ofFileMustExist, ofEnableSizing]
+    Left = 108
+    Top = 132
+  end
+  object OpenNonIntraDlg: TOpenDialog
+    Filter = 'Matrix text|*.mat;*.txt|All files (*.*)|*.*'
+    Options = [ofHideReadOnly, ofFileMustExist, ofEnableSizing]
+    Left = 392
+    Top = 132
+  end
+  object SaveIntraDlg: TSaveDialog
+    DefaultExt = 'mat'
+    Filter = 'Matrix textfile|*.mat;*.txt'
+    Options = [ofHideReadOnly, ofExtensionDifferent, ofEnableSizing]
+    Left = 140
+    Top = 132
+  end
+  object SaveNonIntraDlg: TSaveDialog
+    DefaultExt = 'mat'
+    Filter = 'Matrix textfile|*.mat;*.txt'
+    Options = [ofHideReadOnly, ofExtensionDifferent, ofEnableSizing]
+    Left = 424
+    Top = 132
+  end
+end

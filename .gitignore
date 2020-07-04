@@ -3,3 +3,4 @@ a.*
 *.res
 *.identcache
 Win32
+__history
