@@ -69,7 +69,7 @@ var
     Ident: TBytes; // UTF8String;
   begin
     Ident := TEncoding.UTF8.GetBytes(S);
-                                       
+
     if not UTF8Idents and (Length(Ident) > S.Length) then
       UTF8Idents := True;
     WriteTBytes(Ident);
@@ -255,11 +255,11 @@ var
                   if ((I - K) >= LineLength) then
                   begin
                     LIneBreak := True;
-                                   
+
 //                    if ByteType(S, I) = mbTrailByte then Dec(I);
                   end;
                   WriteAsciiStr('''');
-                                 
+
                   WriteAsciiStr(S.Substring(J-Low(S), I-J));
                   WriteAsciiStr('''');
                 end else
