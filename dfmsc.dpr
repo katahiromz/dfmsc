@@ -14,7 +14,7 @@ var
 
 procedure show_version;
 begin
-  Writeln('dfmsc by katahiromz version 0.6');
+  Writeln('dfmsc by katahiromz version 0.7');
 end;
 
 procedure show_help;
@@ -114,6 +114,63 @@ var
     Writer.Write(S, Length(S));
   end;
 
+  procedure WriteEscapedTBytes(S: TBytes);
+  var
+    I: Integer;
+    bytes: TBytes;
+  begin
+    SetLength(bytes, 2);
+    for I := Low(S) to High(S) do
+    begin
+      case S[I] of
+      0: // "\0"
+        begin
+          bytes[0] := $5C;
+          bytes[1] := $30;
+          Writer.Write(bytes, 2);
+        end;
+      9: // "\t"
+        begin
+          bytes[0] := $5C;
+          bytes[1] := $74;
+          Writer.Write(bytes, 2);
+        end;
+      10: // "\n"
+        begin
+          bytes[0] := $5C;
+          bytes[1] := $6E;
+          Writer.Write(bytes, 2);
+        end;
+      11: // "\v"
+        begin
+          bytes[0] := $5C;
+          bytes[1] := $76;
+          Writer.Write(bytes, 2);
+        end;
+      12: // "\f"
+        begin
+          bytes[0] := $5C;
+          bytes[1] := $66;
+          Writer.Write(bytes, 2);
+        end;
+      13: // "\r"
+        begin
+          bytes[0] := $5C;
+          bytes[1] := $72;
+          Writer.Write(bytes, 2);
+        end;
+      92: // "\\"
+        begin
+          bytes[0] := $5C;
+          bytes[1] := $5C;
+          Writer.Write(bytes, 2);
+        end;
+      else
+        Writer.Write(S[i], 1);
+      end;
+    end;
+  end;
+
   procedure WriteAsciiStr(const S: String);
   var
     Buf: TBytes;
@@ -139,6 +196,14 @@ var
     if not UTF8Idents and (Length(Ident) > S.Length) then
       UTF8Idents := True;
     WriteTBytes(Ident);
+  end;
+
+  procedure WriteEscapedUTF8Str(const S: string);
+  var
+    Ident: TBytes; // UTF8String;
+  begin
+    Ident := TEncoding.UTF8.GetBytes(S);
+    WriteEscapedTBytes(Ident);
   end;
 
   procedure NewLine;
@@ -307,7 +372,7 @@ var
           if comments then
           begin
             WriteAsciiStr(' //- ');
-            WriteUTF8Str(W);
+            WriteEscapedUTF8Str(W);
             WriteAsciiStr(' -//');
           end;
         end;
