@@ -1,8 +1,3 @@
-program dfmsc;
-
-{$APPTYPE CONSOLE}
-
-{$R *.res}
 
 uses
   System.SysUtils,
@@ -11,10 +6,11 @@ uses
 var
   comments: Boolean;
   InputCodePage: Integer;
+  NoUnicode: Boolean;
 
 procedure show_version;
 begin
-  Writeln('dfmsc by katahiromz version 0.7');
+  Writeln('dfmsc by katahiromz version 0.8');
 end;
 
 procedure show_help;
@@ -28,17 +24,40 @@ begin
   Writeln('--t2b            Convert from text to binary');
   Writeln('--comments       Add comments for raw text');
   Writeln('--codepage XXX   Specify text codepage');
+  Writeln('--no-unicode     Don''t use Unicode and UTF-8');
 end;
 
 type
   TWriter2 = class(TWriter)
   public
     procedure WritePrefix2(Flags: TFilerFlags; AChildPos: Integer);
+    procedure WriteString2(const Value: String; CodePage: Integer);
   end;
 
 procedure TWriter2.WritePrefix2(Flags: TFilerFlags; AChildPos: Integer);
 begin
   WritePrefix(Flags, AChildPos);
+end;
+
+procedure TWriter2.WriteString2(const Value: String; CodePage: Integer);
+var
+  L: Integer;
+  StrBuf: TBytes;
+  Encoding: TEncoding;
+begin
+  Encoding := TEncoding.GetEncoding(CodePage);
+  StrBuf := Encoding.GetBytes(Value);
+  L := Length(StrBuf);
+  if L <= 255 then
+  begin
+    WriteValue(vaString);
+    Write(L, SizeOf(Byte));
+  end else
+  begin
+    WriteValue(vaLString);
+    Write(L, SizeOf(Integer));
+  end;
+  Write(StrBuf, L);
 end;
 
 type
@@ -603,8 +622,15 @@ var
 
   begin
     if Parser.Token in [System.Classes.toString, toWString] then
-      Writer.WriteString(CombineString)
-    else
+    begin
+      if (InputCodePage <> 0) and NoUnicode then
+      begin
+        Writer.WriteString2(CombineString, InputCodePage);
+      end else
+      begin
+        Writer.WriteString(CombineString);
+      end;
+    end else
     begin
       case Parser.Token of
         toSymbol:
@@ -803,6 +829,7 @@ begin
   t2b := false;
   comments := false;
   InputCodePage := 0;
+  NoUnicode := false;
   has_param := false;
   if (ParamCount = 0) then begin
     show_help;
@@ -829,6 +856,10 @@ begin
     end;
     if (str = '--t2b') then begin
       t2b := true;
+      continue;
+    end;
+    if (str = '--no-unicode') then begin
+      NoUnicode := true;
       continue;
     end;
     if (str = '--comments') then begin
