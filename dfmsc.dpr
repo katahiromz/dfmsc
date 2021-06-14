@@ -791,6 +791,7 @@ begin
        on E: Exception do begin
          writeln(E.Message);
          Result := False;
+         exit;
        end;
     end;
   finally
@@ -824,6 +825,7 @@ begin
       on E: Exception do begin
         writeln(E.Message);
         Result := False;
+        exit;
       end;
     end;
   finally
@@ -839,6 +841,7 @@ var
   t2b : boolean;
   has_param : boolean;
 begin
+  System.ExitCode := 1;
   b2t := false;
   t2b := false;
   comments := false;
@@ -909,13 +912,16 @@ begin
     output_file := input_file + '.txt';
     if not(Dfm2Txt(input_file, output_file)) then begin
       Writeln('ERROR: Cannot convert file ''' + input_file + '''');
+      exit;
     end;
   end
   else if t2b then begin
     output_file := input_file + '.dfm';
     if not(Txt2Dfm(input_file, output_file)) then begin
       Writeln('ERROR: Cannot convert file ''' + input_file + '''');
+      exit;
     end;
   end;
+  System.ExitCode := 0;
 end.
 
