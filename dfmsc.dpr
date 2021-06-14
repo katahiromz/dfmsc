@@ -10,7 +10,7 @@ var
 
 procedure show_version;
 begin
-  Writeln('dfmsc by katahiromz version 0.8');
+  Writeln('dfmsc by katahiromz version 0.9');
 end;
 
 procedure show_help;
@@ -781,11 +781,18 @@ begin
   SrcS := TFileStream.Create(Src, fmOpenRead);
   DestS := TFileStream.Create(Dest, fmCreate);
   try
-    ObjectBinaryToText2(SrcS, DestS);
-    if FileExists(Src) and FileExists(Dest) then
-      Result := True
-    else
-      Result := False;
+    try
+      ObjectBinaryToText2(SrcS, DestS);
+      if FileExists(Src) and FileExists(Dest) then
+        Result := True
+      else
+        Result := False;
+    except
+       on E: Exception do begin
+         writeln(E.Message);
+         Result := False;
+       end;
+    end;
   finally
     SrcS.Free;
     DestS.Free;
@@ -807,11 +814,18 @@ begin
   SrcS := TFileStream.Create(Src, fmOpenRead);
   DestS := TFileStream.Create(Dest, fmCreate);
   try
-    ObjectTextToBinary2(SrcS, DestS);
-    if FileExists(Src) and FileExists(Dest) then
-      Result := True
-    else
-      Result := False;
+    try
+      ObjectTextToBinary2(SrcS, DestS);
+      if FileExists(Src) and FileExists(Dest) then
+        Result := True
+      else
+        Result := False;
+    except
+      on E: Exception do begin
+        writeln(E.Message);
+        Result := False;
+      end;
+    end;
   finally
     SrcS.Free;
     DestS.Free;
