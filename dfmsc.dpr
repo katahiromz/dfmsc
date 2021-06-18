@@ -10,7 +10,7 @@ var
 
 procedure show_version;
 begin
-  Writeln('dfmsc by katahiromz version 0.9');
+  Writeln('dfmsc by katahiromz version 1.0');
 end;
 
 procedure show_help;
